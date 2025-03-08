@@ -1,1 +1,1 @@
-# StatCaht
+# StatChat
