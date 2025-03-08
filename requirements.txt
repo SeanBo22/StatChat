@@ -1,0 +1,7 @@
+nlp
+spacy
+pandas
+numpy
+fuzzywuzzy
+nba_api
+nltk
