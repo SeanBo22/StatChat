@@ -137,26 +137,3 @@ def proc(txt: str):
     else:
         sug1, sug2, sug3 = get_sugges()
         return "I'm sorry, I don't understand your input. Please ask me similar questions like: \n\n {} \n\n {} \n\n {}".format(sug1, sug2, sug3)
-
-# response = proc("How many rebounds did Trae Young average in 2024?")
-# print(response)
-# response = proc("How many assists did Stephen Curry average in 2024?")
-# print(response)
-# response = proc("Who is Stephen Curry?")
-# print(response)
-
-# response = proc("What was Trae Young's three point percentage?")
-# print(response)
-
-# questions = ["What was the number of threes made for the Knicks in 2024?", "For the current season, what is the attempted three pointers for the Brooklyn Nets?"]
-# for q in questions:
-#     response = proc(q)
-#     print(response)
-
-# sug1, sug2, sug3 = get_sugges()
-# print(sug1)
-# print(sug2)
-
-
-# response = proc("For the current season, what is the attempted three pointers for the Brooklyn Nets?")
-# print(response)

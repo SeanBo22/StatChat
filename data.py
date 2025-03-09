@@ -173,21 +173,3 @@ def t_stats_total(team_id, season, stat):
 
     # Return the requested stat
     return season_stats[stat].values[0] * season_stats["GP"].values[0]
-
-# team_stats = teamyearbyyearstats.TeamYearByYearStats(team_id="1610612747", season_type_all_star="Regular Season", per_mode_simple="PerGame", league_id="00")
-# team_stats = team_stats.get_json()
-# team_stats = json.loads(team_stats)
-
-# # Extract column headers and data
-# headers = team_stats["resultSets"][0]["headers"]
-# row_set = team_stats["resultSets"][0]["rowSet"]
-
-# # Create a DataFrame
-# df = pd.DataFrame(row_set, columns=headers)
-
-# print(df)
-
-
-# t_stats_per_season("1610612747", "2024-25", "GP")
-# stats_per_game("203076", "2024-25", "REB")
-# stats_season("203076", "2024-25", "REB")
