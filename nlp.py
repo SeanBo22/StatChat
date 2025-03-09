@@ -71,7 +71,8 @@ def proc(txt: str):
     # Check if all entities are present
     response = ""
     if "PLAYER" not in entities and "TEAM" not in entities:
-        return "I'm sorry, I was unable to identify the player or team in your question. Please ask a statistical question containing a player or team name in the 2024 NBA season. Also, please ensure to use the player's or teams full name."
+        sug1, sug2, sug3 = get_sugges()
+        return "I'm sorry, I was unable to identify the player or team in your question. Please ask a statistical question containing a player or team name in the 2024 NBA season. Also, please ensure to use the player's or teams full name. Please ask a similar question to these: \n\n {} \n\n {} \n\n {}".format(sug1, sug2, sug3)
     if "STAT" not in entities:
         if "PLAYER" in entities:
             return "I'm sorry, I was unable to identify the statistic in your question. Please ask a question containing a statistic for {}. \n\n Check the Info tab for supported statistics.".format(entities["PLAYER"])
