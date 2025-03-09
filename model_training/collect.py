@@ -1,9 +1,14 @@
+# Course: CSC525
+# Sean Bohuslavsky
+
+# Import the necessary libraries
 import json
 from nba_api.stats.endpoints import commonteamroster
 from nba_api.stats.static import teams
 import time
 import unicodedata
 
+# Initialize dictionaries to store NBA team rosters and player IDs
 nba_teams_players = {}
 nba_players_id = {}
 
@@ -18,7 +23,7 @@ for team in all_teams:
     
     # Initialize a list to store player names for this team
     player_list = []
-    time.sleep(10)  # Pause for 1 second to avoid rate limiting
+    time.sleep(10) 
     print(f"Fetching roster for {team_name}...")
     players_data = commonteamroster.CommonTeamRoster(team_id=team_id, season=2024)
     
@@ -55,10 +60,9 @@ print(json.dumps(nba_teams_players, indent=4))
 with open('nba_teams_players.json', 'w', encoding='utf-8') as f:
     json.dump(nba_teams_players, f, ensure_ascii=False, indent=4)
 
+# Save the nba_players_id dictionary to a JSON file
 with open('nba_players_id.json', 'w', encoding='utf-8') as f:
     json.dump(nba_players_id, f, ensure_ascii=False, indent=4)
-    
-print("Data saved to nba_teams_players.json")
 
 
 

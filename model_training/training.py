@@ -1,9 +1,12 @@
+# Course: CSC525
+# Sean Bohuslavsky
+
+# Import the necessary libraries
 import spacy
 import json
 import re
 import random
 from spacy.training import Example
-
 
 # Load a blank English NLP model
 nlp = spacy.load("en_core_web_sm")
@@ -15,11 +18,11 @@ ruler = nlp.add_pipe("entity_ruler", before="ner")
 with open("data/nba_teams_players.json", "r", encoding="utf-8") as file:
     nba_data = json.load(file)
 
-# Create entity patterns for teams (handling case and partial names)
+# Create entity patterns for teams and players
 team_patterns = []
 player_patterns = []
 
-# Add team patterns
+# Iterate through the team data
 for team, players in nba_data.items():
     # Add full team name
     team_patterns.append({"label": "TEAM", "pattern": team})
@@ -46,20 +49,20 @@ for team, players in nba_data.items():
 with open("data/stats.json", "r", encoding="utf-8") as file:
     player_stats_data = json.load(file)
 
-# Create entity patterns for teams (handling case and partial names)
+# Create entity patterns for stats
 stats_patterns = []
 
-# Add team patterns
+# Iterate through the player stats data
 for type, stat_names in player_stats_data.items():
     
-    # Add player patterns for each team
+    # Add stat patterns for each type
     for stat_name in stat_names:
-        # Add full team name
+        # Add full stat name
         stats_patterns.append({"label": "STAT", "pattern": stat_name})
         stats_patterns.append({"label": "STAT", "pattern": stat_name.lower()})
         
       
-# Add team and player patterns to the EntityRuler
+# Add team, player, and stat patterns to the EntityRuler
 ruler.add_patterns(team_patterns + player_patterns + stats_patterns)
 
 
@@ -89,7 +92,10 @@ TRAIN_DATA = [
       
 ]
 
+# Initialize the training data
 examples = []
+
+# Iterate through the training data and create Example objects
 for text, annotations in TRAIN_DATA:
     doc = nlp.make_doc(text)
     example = Example.from_dict(doc, {"entities": annotations})
@@ -105,7 +111,7 @@ for _, annotations in TRAIN_DATA:
         ner.add_label(ent[2])
 
 # Train the model
-for iteration in range(10):  # 10 epochs
+for iteration in range(10):
     random.shuffle(examples)
     losses = {}
     nlp.update(examples, drop=0.2, losses=losses)
@@ -113,33 +119,3 @@ for iteration in range(10):  # 10 epochs
 
 # Save the trained model
 nlp.to_disk("nba_model")
-
-### WORKING
-# Test sentences
-test_sentences = [
-    "In 2024, how many Points did Lebron James average?",
-    "What was the rebound count for Kevin Durant in 2024?",
-    "How many assists did Stephen Curry get this season?",
-    "How many points did Lebron James average in 2024?",
-    "What was the rebound count for Kevin Durant in 2024?",
-    "How many wins did the Lakers have in 2024?",
-    "What is jimmy butler's three point percentage?",
-    "How many games did the Lakers win in 2024?",
-    "How many threes did the Nuggets and Jamal Murray make in 2024?",
-    "How many three attempts did the Lakers have in 2016?"
-]
-
-# Process each sentence
-for sentence in test_sentences:
-    doc = nlp(sentence)
-
-    # Print detected entities
-    print(f"Sentence: {sentence}")
-    print("Entities detected:")
-    
-    # Print spaCy detected entities
-    for ent in doc.ents:
-        print(f"{ent.text} -> {ent.label_}")
-
-    
-    print("-" * 40)  # Separator for readability
