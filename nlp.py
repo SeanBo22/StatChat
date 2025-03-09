@@ -101,7 +101,7 @@ def proc(txt: str):
                         season_stat = data.p_stats_season(player_id, season, stat)
                         if stat not in ["FG_PCT", "FT_PCT", "FG3_PCT"]:
                             pergame_stat = data.p_stats_per_game(player_id, season, stat)
-                            response += "In the 2024 season {} averaged {:.2f} {} per game. His current total {} for the season is {}.".format(player_name.title(), float(pergame_stat), stat_name, stat_name, season_stat)
+                            response += "In the 2024 season, {} averages {:.2f} {} per game. His current total {} for the season is {}.".format(player_name.title(), float(pergame_stat), stat_name, stat_name, season_stat)
                         else:
                             season_stat = season_stat * 100
                             response += "{} currently has a {:.2f}% {} on the season.".format(player_name.title(), float(season_stat), stat_name)
