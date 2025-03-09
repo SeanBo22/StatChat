@@ -55,15 +55,15 @@ def proc(txt: str):
     stat_entites = [ent.text for ent in doc.ents if ent.label_ == "STAT"]
     
     # Check for multiple entities
+    if len(stat_entites) > 1:
+        sug1, sug2, sug3 = get_sugges()
+        return "I'm sorry, I identified that you are asking about multiple stats. I am only able to process one stat at a time. Please ask a similar question to these: \n\n {} \n\n {} \n\n {}".format(sug1, sug2, sug3)
     if len(player_entites) > 1:
         sug1, sug2, sug3 = get_sugges()
         return "I'm sorry, I identified that you are asking about multiple players. I am only able to process one Player at a time. Please ask a similar question to these: \n\n {} \n\n {} \n\n {}".format(sug1, sug2, sug3)
     if len(team_entites) > 1:
         sug1, sug2, sug3 = get_sugges()
         return "I'm sorry, I identified that you are asking about multiple teams. I am only able to process one team at a time. Please ask a similar question to these: \n\n {} \n\n {} \n\n {}".format(sug1, sug2, sug3)
-    if len(stat_entites) > 1:
-        sug1, sug2, sug3 = get_sugges()
-        return "I'm sorry, I identified that you are asking about multiple stats. I am only able to process one stat at a time. Please ask a similar question to these: \n\n {} \n\n {} \n\n {}".format(sug1, sug2, sug3)
     
     # Make a dictionary of entities
     entities = {ent.label_: ent.text for ent in doc.ents}
